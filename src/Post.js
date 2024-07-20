@@ -7,14 +7,20 @@ import ChatOutlinedIcon from "@material-ui/icons/ChatOutlined";
 import SendOutlinedIcon from "@material-ui/icons/SendOutlined";
 import "./Post.css";
 
-const Post = forwardRef(({ name, description, message, photoUrl }, ref) => {
+
+
+const Post = forwardRef(({ name = "Anonymous", description = "", message = "", photoUrl = "" }, ref) => {
+  // Ensure that name is a string and handle cases where it's empty
+  const displayName = name ? name : "Anonymous";
+  const displayInitial = displayName[0] ? displayName[0].toUpperCase() : "U";
+
   return (
     <div ref={ref} className="post">
       <div className="post__header">
-        <Avatar src={photoUrl}>{name[0].toUpperCase()}</Avatar>
+        <Avatar src={photoUrl}>{displayInitial}</Avatar>
 
         <div className="post__info">
-          <h2>{name}</h2>
+          <h2>{displayName}</h2>
           <p>{description}</p>
         </div>
       </div>
